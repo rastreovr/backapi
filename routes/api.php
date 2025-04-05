@@ -29,6 +29,11 @@ use App\Http\Controllers\Me\MeRolesController;
 use App\Http\Controllers\Roles\RolController;
 use App\Http\Controllers\Roles\RolesMenoresController;
 
+/**
+ * !NAVIXY
+ */
+use App\Http\Controllers\Navixy\Navixy;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -83,6 +88,55 @@ Route::group(["prefix" => "v1"], function () {
     });
 
 
+    Route::prefix('navixy')->group(function () {
+
+
+        Route::get("login", [Navixy::class,"login"]);
+
+
+        Route::prefix('tracker')->group(function () {
+
+            Route::get("list", [Navixy::class,"getTrackers"]);
+
+            Route::get("read", [Navixy::class,"getTracker"]);
+
+            Route::get("get_state/{id_tracker}", [Navixy::class,"getStateTracker"]);
+
+            Route::post("get_states", [Navixy::class,"getStatesTrackers"]);
+
+        });
+
+
+        Route::prefix('place')->group(function () {
+
+            Route::get("list", [Navixy::class,"getPlace"]);
+
+        });
+
+
+        Route::prefix('task')->group(function () {
+
+            Route::prefix('route')->group(function () {
+
+                Route::post("create", [Navixy::class,"createTaskRoute"]);
+
+            });
+
+            Route::get("list", [Navixy::class,"getListTask"]);
+            Route::post("list", [Navixy::class,"getListTask"]);
+
+        });
+
+
+        Route::prefix('employee')->group(function () {
+
+            Route::get("list", [Navixy::class,"getEmployees"]);
+
+            Route::get("read/{id}", [Navixy::class,"getEmployee"]);
+
+        });
+
+    });
 
     //! Termina if para apis que necesitan SESSION
 
