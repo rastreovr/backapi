@@ -419,6 +419,7 @@ class Navixy extends Controller
         $hash = $request->input("hash");
         $trackers = $request->input("trackers");
         $status_position_trackers = $request->input("status_position");
+        $status_employee_trackers = $request->input("status_employee");;
 
         $URL = self::$URL;
 
@@ -442,7 +443,6 @@ class Navixy extends Controller
 
         $data = $this->mapListTask($response->json()["list"]);
 
-
         if ($status_position_trackers) {
 
             $data = $this->setPositionTrackerOnListTask([
@@ -450,6 +450,16 @@ class Navixy extends Controller
                 "trackers" => $trackers,
                 "data" => $data
             ]);
+        }
+
+        if($status_employee_trackers){
+
+            $data = $this->setEmployeeTrackerOnListTask([
+                "hash" => $hash,
+                "trackers" => $trackers,
+                "data" => $data
+            ]);
+
         }
 
         return sendApiSuccess($data);
@@ -490,12 +500,15 @@ class Navixy extends Controller
         }, $data);
     }
 
+    protected function mapIdTracker($data){
+        return array_map(function ($value) {
+            return $value["tracker_id"];
+        }, $data);
+    }
+
     protected function setPositionTrackerOnListTask($params)
     {
-
-        $id_trackers = array_map(function ($value) {
-            return $value["tracker_id"];
-        }, $params["data"]);
+        $id_trackers = $this->mapIdTracker($params["data"]);
 
         $request = new Request([
             "hash" => $params["hash"],
@@ -512,6 +525,7 @@ class Navixy extends Controller
 
         return $this->mergePositionWithTask($params["data"], $positions);
     }
+
 
 
     protected function mergePositionWithTask($data, $positions)
@@ -539,6 +553,55 @@ class Navixy extends Controller
 
         return $arrayData;
     }
+
+
+    protected function setEmployeeTrackerOnListTask($params)
+    {
+        $request = new Request([
+            "hash" => $params["hash"],
+        ]);
+
+        $data = json_decode($this->getEmployees($request)->content(), true);
+
+
+        $employees = [];
+
+        if ($data["success"]) {
+            $employees = $data["data"];
+        }
+
+        return $this->mergeEmployeeWithTrackerTask($params["data"], $employees);
+    }
+
+
+
+    protected function mergeEmployeeWithTrackerTask($data, $employees)
+    {
+
+        $employees = $this->convertArrayToObject($employees, "tracker_id");
+
+        $arrayData = [];
+
+        foreach ($data as $value) {
+
+            $key = $value["tracker_id"];
+
+            $position = null;
+
+            if (array_key_exists($key, $employees) && $key) {
+
+                $position = $employees[$key];
+            }
+
+            $value["_employee"] = $position;
+
+            $arrayData[] = $value;
+        }
+
+        return $arrayData;
+    }
+
+
 
     /**
      * !EMPLOYEE
