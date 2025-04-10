@@ -14,6 +14,8 @@ class Navixy extends Controller
     static $CREDENTIALS = [
         "user" => "paul.couttolenc@controlterrestre.com",
         "password" => "123456"
+        // "user" => "desarrollo@kuktrack.net",
+        // "password" => "Whtd76gf_4525"
     ];
 
     public function login()
