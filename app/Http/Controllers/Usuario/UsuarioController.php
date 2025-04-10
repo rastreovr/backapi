@@ -146,6 +146,8 @@ class UsuarioController extends Controller
         $usuario->estatus = $request->estatus;
         $usuario->tipo = $request->tipo;
 
+        $usuario->id_employee_navixy = $request->id_employee_navixy ?? 0;
+
         if ($request->contrasenia) {
 
             $request->validate([
