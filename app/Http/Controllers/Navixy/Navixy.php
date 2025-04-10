@@ -554,7 +554,9 @@ class Navixy extends Controller
         return $arrayData;
     }
 
-
+    /**
+     * !Se puede optimizar para un solo valor
+     */
     protected function setEmployeeTrackerOnListTask($params)
     {
         $request = new Request([
