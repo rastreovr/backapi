@@ -59,6 +59,10 @@ class Navixy extends Controller
         return Task::createTaskRoute($request);
     }
 
+    public function deleteTaskRoute(Request $request){
+        return Task::deleteTaskRoute($request);
+    }
+
     public function getListTask(Request $request)
     {
         return Task::getListTask($request);

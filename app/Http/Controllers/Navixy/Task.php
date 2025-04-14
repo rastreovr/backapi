@@ -261,6 +261,8 @@ class Task extends Controller
                 "user_id" => $value["user_id"],
                 "tracker_id" => $value["tracker_id"],
 
+                "type"=>$value["type"],
+
                 "checkpoints" => array_map(function ($item) {
                     return [
                         "id" => $item["id"],
@@ -347,5 +349,25 @@ class Task extends Controller
         $employees = Functions::getArrayKeyEmployees($params["hash"]);
 
         return Functions::mergeEmployeeWithData($params["data"], $employees, "tracker_id");
+    }
+
+    /**
+     * !DELETE TASK ROUTE
+     */
+
+    static function deleteTaskRoute(Request $request){
+
+        $URL = Navixy::$URL;
+
+        $response = Http::post("$URL/task/route/delete",[
+            "hash"=>$request->input("hash"),
+            "route_id"=>$request->input("route_id")
+        ]);
+
+        if (!$response->successful()) {
+            return Functions::responseErrorDefault($response);
+        }
+
+        return sendApiSuccess([], "Ruta de Seguimiento eliminada exitosamente");
     }
 }

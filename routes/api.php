@@ -120,6 +120,8 @@ Route::group(["prefix" => "v1"], function () {
 
                 Route::post("create", [Navixy::class,"createTaskRoute"]);
 
+                Route::post("delete", [Navixy::class,"deleteTaskRoute"]);
+
             });
 
             Route::get("list", [Navixy::class,"getListTask"]);
