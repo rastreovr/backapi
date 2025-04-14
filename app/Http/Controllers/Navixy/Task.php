@@ -69,6 +69,13 @@ class Task extends Controller
 
         $URL = Navixy::$URL;
 
+        $time_zone = $request->input("time_zone") ?? null;
+
+        if($time_zone){
+            date_default_timezone_set($time_zone);
+        }
+
+
         $params = self::getParamsTaskRoute([
             "route" => $request->input("route"),
             "tracker" =>  $request->input("tracker"),
