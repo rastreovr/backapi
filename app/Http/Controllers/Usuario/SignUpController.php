@@ -28,7 +28,8 @@ class SignUpController extends Controller
             "nombre_usuario" => $request->nombre_usuario,
             "nombre" => $request->get('nombre'),
             "contrasenia" => Hash::make($request->contrasenia),
-            "tipo" => $request->tipo ?? 0
+            "tipo" => $request->tipo ?? 0,
+            "id_employee_navixy" => $request->id_employee_navixy ?? 0
         ]);
 
 
