@@ -12,10 +12,10 @@ class Navixy extends Controller
     static $URL = "https://api.navixy.com/v2";
 
     static $CREDENTIALS = [
-        "user" => "paul.couttolenc@controlterrestre.com",
-        "password" => "123456"
-        // "user" => "desarrollo@kuktrack.net",
-        // "password" => "Whtd76gf_4525"
+        // "user" => "paul.couttolenc@controlterrestre.com",
+        // "password" => "123456"
+        "user" => "desarrollo@kuktrack.net",
+        "password" => "Whtd76gf_4525"
     ];
 
     public function login()
