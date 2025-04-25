@@ -273,6 +273,9 @@ class Task extends Controller
                 "checkpoints" => array_map(function ($item) {
                     return [
                         "id" => $item["id"],
+
+                        "label" => $item["label"],
+
                         "status" => $item["status"],
                         "location" => [
                             "lat" => $item["location"]["lat"],
