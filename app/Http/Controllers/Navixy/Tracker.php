@@ -163,7 +163,8 @@ class Tracker extends Controller
                         "lat" => $value["gps"]["location"]["lat"],
                         "lng" => $value["gps"]["location"]["lng"]
                     ],
-                    "speed" => $value["gps"]["speed"]
+                    "speed" => $value["gps"]["speed"],
+                    "heading" => $value["gps"]["heading"]
                 ]
             ];
         }, $data);
