@@ -109,8 +109,8 @@ class Task extends Controller
             "from" => $params["from"],
             "to" => $params["to"],
 
-            "max_delay" => 0,
-            "min_stay_duration" => 30,
+            "max_delay" => 30,
+            "min_stay_duration" => 0,
             "tags" => [],
             "form_template_id" => null
         ];
