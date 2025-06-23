@@ -295,9 +295,15 @@ class Task extends Controller
 
     static function mapIdTracker($data)
     {
-        return array_map(function ($value) {
+        $tracker_ids = array_map(function ($value) {
             return $value["tracker_id"];
         }, $data);
+
+        $tracker_ids = array_filter($tracker_ids,function($value){
+            return $value;
+        });
+
+        return array_unique($tracker_ids);
     }
 
     static function getArrayKeyPositions(string $hash, array $id_trackers)
