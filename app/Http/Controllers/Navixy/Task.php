@@ -303,7 +303,7 @@ class Task extends Controller
             return $value;
         });
 
-        return array_unique($tracker_ids);
+        return array_values(array_unique($tracker_ids));
     }
 
     static function getArrayKeyPositions(string $hash, array $id_trackers)
